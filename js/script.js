@@ -71,8 +71,9 @@ function addPagination(list) {
 
    linkList.addEventListener('click', (event) => {
       if (event.target.nodeName === 'BUTTON'){
-         for (let i = 0; i < linkList.length; i++){
-            linkList[i].className = '';
+         let linkListItems = linkList.getElementsByTagName('button');
+         for (let i = 0; i < linkListItems.length; i++){
+            linkListItems[i].className = 'inactive';
          }
          event.target.className = "active";
          showPage(list, event.target.getAttribute('id'));
@@ -81,6 +82,8 @@ function addPagination(list) {
 
 
 }
+
+
 
 // Call functions
 showPage(data, 1);
