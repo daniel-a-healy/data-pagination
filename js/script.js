@@ -11,7 +11,7 @@ For assistance:
    Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
 */
 
-const maxPerPage = 9; // maximum number of student list items displayed per page
+const maxPerPage = 9; // maximum number of student listtButtons displayed per page
 
 /*
 Create the `showPage` function
@@ -71,9 +71,9 @@ function addPagination(list) {
 
    linkList.addEventListener('click', (event) => {
       if (event.target.nodeName === 'BUTTON'){
-         let linkListItems = linkList.getElementsByTagName('button');
-         for (let i = 0; i < linkListItems.length; i++){
-            linkListItems[i].className = 'inactive';
+         let linkListButtons = linkList.getElementsByTagName('button');
+         for (let i = 0; i < linkListButtons.length; i++){
+            linkListButtons[i].className = 'inactive';
          }
          event.target.className = "active";
          showPage(list, event.target.getAttribute('id'));
@@ -92,9 +92,23 @@ function createSearchBar(){
       </label>
       `;
    header.insertAdjacentHTML('beforeend', searchBarHTML);   
+
+   const searchBar = document.getElementById('search');
+
+   searchBar.addEventListener('keyup', () => {
+      let query = searchBar.value;
+
+      for (let i = 0; i < data.length; i++){
+         let studentName = `${data[i].name.first} ${data[i].name.last}`;
+         if (studentName.includes(query)){
+            console.log(studentName);
+         }
+      }
+
+   });
 }
 
 // Call functions
-createSearchBar();
+createSearchBar(data);
 showPage(data, 1);
 addPagination(data);
