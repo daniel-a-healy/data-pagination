@@ -11,7 +11,7 @@ For assistance:
    Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
 */
 
-let maxPerPage = 9; // maximum number of students displayed per page
+const maxPerPage = 9; // maximum number of student list items displayed per page
 
 /*
 Create the `showPage` function
@@ -19,12 +19,15 @@ This function will create and insert/append the elements needed to display a "pa
 */
 
 function showPage(list, page) {
+   // calculates the start and end index of the data array based on what number page is being displayed and the maxPerPage constant value
    let startIndex = (page * maxPerPage) - maxPerPage; 
    let endIndex = page * maxPerPage;
 
+   // selects student list section of the document and initializes the HTML value to an empty string
    let studentList = document.querySelector('.student-list');
    studentList.innerHTML = '';
 
+   // iterates over the subset of the data array, inserting the relevant data into the list item template literal
    for(let i = 0; i < list.length; i++) {
       if (i >= startIndex && i < endIndex) {
          let studentHTML =
@@ -39,14 +42,10 @@ function showPage(list, page) {
             </div>
          </li>
          `;
-
-         studentList.insertAdjacentHTML('beforeend', studentHTML);
+         studentList.insertAdjacentHTML('beforeend', studentHTML); // inserts student list item into the page, making it visible
       }
    }
 }
-
-console.log(showPage(data, 1));
-
 
 /*
 Create the `addPagination` function
@@ -54,7 +53,18 @@ This function will create and insert/append the elements needed for the paginati
 */
 
 function addPagination(list) {
+   const numPaginationButtons = Math.ceil(list.length / maxPerPage);
+   const linkList = document.querySelector(".link-list");
+   linkList.innerHTML = '';
 
+   for(let i = 0; i < numPaginationButtons; i++){
+      let paginationHTML = `
+      <li>
+         <button type="button">${i + 1}</button>
+      </li>
+      `;
+      linkList.insertAdjacentHTML('beforeend', paginationHTML);
+   }
 }
 
 
