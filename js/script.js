@@ -60,13 +60,28 @@ function addPagination(list) {
    for(let i = 0; i < numPaginationButtons; i++){
       let paginationHTML = `
       <li>
-         <button type="button">${i + 1}</button>
+         <button type="button" id="${i + 1}">${i + 1}</button>
       </li>
       `;
       linkList.insertAdjacentHTML('beforeend', paginationHTML);
    }
+
+   const firstPageButton = document.getElementById('1');
+   firstPageButton.className = "active";
+
+   linkList.addEventListener('click', (event) => {
+      if (event.target.nodeName === 'BUTTON'){
+         for (let i = 0; i < linkList.length; i++){
+            linkList[i].className = '';
+         }
+         event.target.className = "active";
+         showPage(list, event.target.getAttribute('id'));
+      }
+   });
+
+
 }
 
-
-
 // Call functions
+showPage(data, 1);
+addPagination(data);
