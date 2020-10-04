@@ -11,7 +11,7 @@ For assistance:
    Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
 */
 
-const maxPerPage = 9; // maximum number of student listtButtons displayed per page
+const maxPerPage = 9; // maximum number of student listButtons displayed per page
 
 /*
 Create the `showPage` function
@@ -97,12 +97,21 @@ function createSearchBar(){
 
    searchBar.addEventListener('keyup', () => {
       let query = searchBar.value;
+      let matchedResults = [];
 
       for (let i = 0; i < data.length; i++){
          let studentName = `${data[i].name.first} ${data[i].name.last}`;
+         
          if (studentName.includes(query)){
-            console.log(studentName);
+            matchedResults.push(data[i]);
          }
+      }
+
+      if (matchedResults.length === 0) {
+         console.log("No results found.");
+      }else{
+         showPage(matchedResults, 1);
+         addPagination(matchedResults);
       }
 
    });
