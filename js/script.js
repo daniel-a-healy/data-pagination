@@ -117,7 +117,10 @@ function createSearchBar(){
       }
             
       showPage(matchedResults, 1);
-      addPagination(matchedResults);
+      if (matchedResults.length > 0){
+         addPagination(matchedResults);
+      }
+      
       
 
    });
