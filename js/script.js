@@ -11,7 +11,7 @@ For assistance:
    Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
 */
 
-
+let maxPerPage = 9; // maximum number of students displayed per page
 
 /*
 Create the `showPage` function
@@ -19,8 +19,8 @@ This function will create and insert/append the elements needed to display a "pa
 */
 
 function showPage(list, page) {
-   let startIndex = (page * 9) - 9; 
-   let endIndex = page * 9;
+   let startIndex = (page * maxPerPage) - maxPerPage; 
+   let endIndex = page * maxPerPage;
 
    let studentList = document.querySelector('.student-list');
    studentList.innerHTML = '';
@@ -40,12 +40,12 @@ function showPage(list, page) {
          </li>
          `;
 
-         studentList.insertAdjacentHTML('afterend', studentHTML);
+         studentList.insertAdjacentHTML('beforeend', studentHTML);
       }
    }
 }
 
-
+console.log(showPage(data, 1));
 
 
 /*
@@ -53,7 +53,7 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
-function addPagination() {
+function addPagination(list) {
 
 }
 
