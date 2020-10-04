@@ -27,24 +27,33 @@ function showPage(list, page) {
    let studentList = document.querySelector('.student-list');
    studentList.innerHTML = '';
 
-   // iterates over the subset of the data array, inserting the relevant data into the list item template literal
-   for(let i = 0; i < list.length; i++) {
-      if (i >= startIndex && i < endIndex) {
-         let studentHTML =
-         `<li class="student-item cf">
-            <div class="student-details">
-               <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
-               <h3>${list[i].name.first} ${list[i].name.last}</h3>
-               <span class="email">${list[i].email}</span>
-            </div>
-            <div class="joined-details">
-               <span class="date">Joined ${list[i].registered.date}</span>
-            </div>
-         </li>
-         `;
-         studentList.insertAdjacentHTML('beforeend', studentHTML); // inserts student list item into the page, making it visible
+   if (list.length === 0){
+      let noResultsHTML = `
+         <h3>No results found</h3>
+      `;
+      studentList.insertAdjacentHTML('beforeend', noResultsHTML);
+   }else{
+      // iterates over the subset of the data array, inserting the relevant data into the list item template literal
+      for(let i = 0; i < list.length; i++) {
+         if (i >= startIndex && i < endIndex) {
+            let studentHTML =
+            `<li class="student-item cf">
+               <div class="student-details">
+                  <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
+                  <h3>${list[i].name.first} ${list[i].name.last}</h3>
+                  <span class="email">${list[i].email}</span>
+               </div>
+               <div class="joined-details">
+                  <span class="date">Joined ${list[i].registered.date}</span>
+               </div>
+            </li>
+            `;
+            studentList.insertAdjacentHTML('beforeend', studentHTML); // inserts student list item into the page, making it visible
+         }
       }
    }
+
+   
 }
 
 /*
@@ -106,13 +115,10 @@ function createSearchBar(){
             matchedResults.push(data[i]);
          }
       }
-
-      if (matchedResults.length === 0) {
-         console.log("No results found.");
-      }else{
-         showPage(matchedResults, 1);
-         addPagination(matchedResults);
-      }
+            
+      showPage(matchedResults, 1);
+      addPagination(matchedResults);
+      
 
    });
 }
