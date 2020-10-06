@@ -109,7 +109,7 @@ function createSearchBar(){
    const searchBar = document.getElementById('search');
 
    searchBar.addEventListener('keyup', () => {
-      let queryRegEx = new RegExp(`^${searchBar.value}`); // puts current search text into a RegEx for matching
+      let queryRegEx = new RegExp(`^${searchBar.value}`, "i"); // puts current search text into a RegEx for matching
       let matchedResults = []; // array for storing all match results
 
       for (let i = 0; i < data.length; i++){
