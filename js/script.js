@@ -62,10 +62,11 @@ This function will create and insert/append the elements needed for the paginati
 */
 
 function addPagination(list) {
-   const numPaginationButtons = Math.ceil(list.length / maxPerPage);
+   const numPaginationButtons = Math.ceil(list.length / maxPerPage); // calculates number of pagination buttons needed based on data size and desired max results per page
    const linkList = document.querySelector(".link-list");
    linkList.innerHTML = '';
 
+   // creates the pagination button html
    for(let i = 0; i < numPaginationButtons; i++){
       let paginationHTML = `
       <li>
@@ -75,9 +76,11 @@ function addPagination(list) {
       linkList.insertAdjacentHTML('beforeend', paginationHTML);
    }
 
+   // sets the default button to be clicked as page 1
    const firstPageButton = document.getElementById('1');
    firstPageButton.className = "active";
 
+   // adds listener logic to switch between different pages
    linkList.addEventListener('click', (event) => {
       if (event.target.nodeName === 'BUTTON'){
          let linkListButtons = linkList.getElementsByTagName('button');
@@ -93,6 +96,7 @@ function addPagination(list) {
 }
 
 function createSearchBar(){
+   // insert search bar HTML before end of header class
    const header = document.querySelector(".header");
    const searchBarHTML = 
       `<label for="search" class="student-search">
@@ -105,19 +109,20 @@ function createSearchBar(){
    const searchBar = document.getElementById('search');
 
    searchBar.addEventListener('keyup', () => {
-      let query = searchBar.value;
-      let matchedResults = [];
+      let queryRegEx = new RegExp(`^${searchBar.value}`); // puts current search text into a RegEx for matching
+      let matchedResults = []; // array for storing all match results
 
       for (let i = 0; i < data.length; i++){
-         let studentName = `${data[i].name.first} ${data[i].name.last}`;
+         let studentName = `${data[i].name.first} ${data[i].name.last}`; //formatting student data in the form that it would be searched
          
-         if (studentName.includes(query)){
-            matchedResults.push(data[i]);
+         if (queryRegEx.test(studentName)){
+            matchedResults.push(data[i]); // add student data object to array if it matches the constructed RegEx
          }
       }
             
-      showPage(matchedResults, 1);
-      if (matchedResults.length > 0){
+      showPage(matchedResults, 1); // shows the page with zero or more results
+
+      if (matchedResults.length > 0){ // only adds pagination if there are matching search results
          addPagination(matchedResults);
       }
       
